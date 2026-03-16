@@ -7,7 +7,7 @@ Customer support can see the payment record, but there is no order record in the
 
 # Assumptions
 - The system has separate services for payment, order, and restaurant dashboard/notification
-- Payment gateway sends a callback/webhook** after successful payment
+- Payment gateway sends a callback/webhook after successful payment
 - Order creation happens either:
   - synchronously via API call, or
   - asynchronously via message queue/event bus
