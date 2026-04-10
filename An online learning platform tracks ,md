@@ -1,4 +1,4 @@
-* 6. An online learning platform tracks video progress and unlocks certificates when 100% of the course is completed.
+# 6. An online learning platform tracks video progress and unlocks certificates when 100% of the course is completed.
 Many users report that their videos show fully watched, but certificates remain locked even after refreshing and re-logging.
 What backend validations might be failing?
  How would you verify event tracking, progress calculation, and completion triggers?
