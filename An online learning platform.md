@@ -1,0 +1,276 @@
+An online learning platform tracks video progress and unlocks certificates when 100% of the course is completed.
+Many users report that their videos show fully watched, but certificates remain locked even after refreshing and re-logging.
+What backend validations might be failing?
+ How would you verify event tracking, progress calculation, and completion triggers?
+
+Ans:  Assumptions Based on the Scenario
+
+
+1.	UI progress may not be the final truth.
+ 
+Just because the frontend shows 100% does not mean the backend has recorded 100% completion.
+
+
+2.	Course completion may require more than watching videos.
+ 
+There could be quizzes, assignments, or other requirements that must also be completed.
+
+
+3.	Video watch data may not be fully sent to the server.
+ 
+Due to network issues, browser restrictions, or event failures, the final watch events might not reach the backend.
+
+
+4.	The video completed event may not have been triggered.
+
+ If users skip to the end or close the tab quickly, the completion event might not be recorded.
+
+
+5.	The certificate unlock process may have failed.
+
+ Even if progress reached 100%, the backend process that unlocks the certificate may not have executed properly.
+
+Event Tracking Issue
+•	Final video completion event was not sent
+
+
+•	Events were rejected due to validation errors
+
+
+•	Wrong user ID or course ID was recorded
+
+
+•	Last few seconds of watch time were not captured
+ Progress Calculation Issue
+•	UI shows 100%, but backend calculation shows 99%
+
+
+•	Rounding differences in percentage calculation
+
+
+•	A required video or quiz is incomplete
+
+
+•	Progress from multiple devices was not merged correctly
+ Completion Trigger Issue
+•	Completion status was not updated to completed
+
+
+•	Certificate generation job failed
+
+
+•	Background job or queue processing did not run
+
+
+•	Completion trigger logic has a bug
+How To Verify
+Step 1: Check Event Tracking
+•	Review logs for the affected user
+
+
+•	Confirm the “video completed” event was received
+
+
+•	Check for any event validation errors\
+Step 2: Check Backend Progress Calculation
+•	Verify the stored course progress percentage
+
+
+•	Confirm all required videos and quizzes are completed
+
+
+•	Recalculate progress manually if needed
+Step 3: Check Completion & Certificate Trigger
+•	Verify course completion status in the database
+
+
+•	Check if certificate generation job was triggered
+
+
+•	Review logs for job failures or errors
+Edge Cases 
+1 Video Watching Behavior Issues
+•	User skipped to the end instead of watching fully.
+
+
+•	User watched at 2x speed, and the system may require minimum watch time.
+
+
+•	User closed the tab/app immediately after the video ended, so the final event was not sent.
+
+
+•	Poor internet connection caused the last few seconds not to be recorded.
+
+
+•	User watched in background mode, and tracking stopped.
+
+
+•	Autoplay switched to next video too quickly, so the “video completed” event didn’t fire.
+
+
+2. Frontend (UI) Showing Wrong Information
+•	The UI may show 100% based on local data, but the backend did not confirm it.
+
+
+•	The page may be showing cached (old) data.
+
+
+•	User refreshed before the backend finished updating.
+
+
+•	User opened the course in multiple tabs or devices, and progress didn’t sync properly.
+
+
+3.  Event Tracking Problems
+•	The final “video completed” event was not received by the server.
+
+
+•	Events arrived in the wrong order and were rejected.
+
+
+•	Some tracking requests were blocked by ad blockers or browser settings.
+
+
+•	Wrong user ID or course ID was sent with the tracking event.
+
+
+•	Duplicate event handling removed an important completion event.
+
+
+4. Progress Calculation Problems
+•	UI rounded progress to 100%, but backend shows 99%.
+
+
+•	A required quiz or assignment is incomplete.
+
+
+•	A new video was added to the course after the user started.
+
+
+•	A hidden required lesson exists that the user didn’t complete.
+
+
+•	Progress from different devices was not merged correctly.
+
+
+5. User Account or Access Issues
+•	User’s enrollment expired.
+
+
+•	User logged in with a different account.
+
+
+•	Certificate is restricted for trial users.
+
+
+•	Organization rules prevent certificate generation.
+
+
+6. Certificate Generation Problems
+•	Background job that generates the certificate failed.
+
+
+•	System marked course complete but failed to create certificate record.
+
+
+•	Queue or job processing is delayed.
+
+
+•	Certificate process is stuck in pending or failed state.
+Risks in This Scenario
+1. User Trust & Reputation Risk
+If users complete a course but cannot access their certificate:
+•	It reduces trust in the platform.
+
+
+•	Users may feel the system is unreliable or unfair.
+
+
+•	Negative reviews and social media complaints may increase.
+
+
+•	Brand reputation may be damaged.
+
+
+2.Customer Support & Operational Risk
+•	Increased support tickets and manual verification requests.
+
+
+•	Higher operational workload for support and engineering teams.
+
+
+•	SLA breaches if resolution time increases.
+
+
+•	Additional cost for manual certificate issuance.
+
+
+3.Revenue & Business Risk
+•	Users may request refunds.
+
+
+•	Drop in renewals or subscription upgrades.
+
+
+•	Corporate clients may lose confidence.
+
+
+•	Reduced conversion rates for paid courses.
+
+
+4. Data Integrity Risk
+•	Mismatch between frontend progress and backend records.
+
+
+•	Inaccurate reporting in analytics dashboards.
+
+
+•	Incorrect completion statistics affecting business decisions.
+
+
+•	Compliance or audit issues if certification data is incorrect.
+
+
+5.Technical & System Reliability Risk
+•	Event tracking pipeline failures.
+
+
+•	Asynchronous job or queue backlogs.
+
+
+•	Race conditions or caching inconsistencies.
+
+
+•	Database replication lag causing inconsistent reads.
+
+
+6. Compliance & Legal Risk
+•	Certificates may be required for professional or regulatory purposes.
+
+
+•	Incorrect issuance or failure to issue certificates can create legal disputes.
+
+
+•	Accreditation bodies may question system accuracy.
+
+
+7.Scalability Risk
+•	As user volume increases, event processing delays may increase.
+
+
+•	Certificate generation system may not scale properly.
+
+
+•	Performance bottlenecks may become more frequent during peak hours.
+
+
+8.Security & Fraud Risk
+•	Weak validation may allow users to bypass watch requirements.
+
+
+•	Strict validation may block legitimate users.
+
+
+•	Potential exploitation if completion logic has loopholes.
+
+
