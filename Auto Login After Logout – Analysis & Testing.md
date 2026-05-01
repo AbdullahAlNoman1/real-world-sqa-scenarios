@@ -1,6 +1,6 @@
-# 🔐 Auto Login After Logout – Analysis & Testing
+#  Auto Login After Logout – Analysis & Testing
 
-## 📌 Assumptions Based on the Scenario
+##  Assumptions Based on the Scenario
 
 ### 1. Logout may not fully invalidate the session
 The logout function might only clear UI state but not revoke server-side sessions or tokens.  
