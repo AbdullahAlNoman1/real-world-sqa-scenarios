@@ -72,7 +72,7 @@ A form submission works in Chrome and Edge but fails silently in Safari — no e
 
 - Empty required fields
 - Very large inputs (textarea / payload size)
-- Special characters & emojis (`@ # % & < > 😊`)
+- Special characters & emojis (`@ # % & < > `)
 - File uploads (large / unsupported formats)
 - Session expired scenarios (401 / 403)
 - Double-click submit (duplicate requests)
