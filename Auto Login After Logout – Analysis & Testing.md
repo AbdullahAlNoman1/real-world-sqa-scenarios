@@ -25,27 +25,27 @@ If using WebView or SSO (Google/Apple), cookies may remain active and restore se
 
 ---
 
-## 🛡️ Security Testing Approach
+##  Security Testing Approach
 
-### ✔️ Verify Token Invalidation
+###  Verify Token Invalidation
 - Logout → reuse old token  
 - Expect: `401 Unauthorized`
 
-### ✔️ Check Refresh Token Behavior
+###  Check Refresh Token Behavior
 - Monitor network after reopening app  
 - Expect: No new token generation
 
-### ✔️ Inspect Local Storage
+###  Inspect Local Storage
 - Check if tokens remain after logout  
 - Expect: All tokens removed
 
-### ✔️ Replay Attack Testing
+###  Replay Attack Testing
 - Reuse captured tokens  
 - Expect: Access denied
 
 ---
 
-## 🧪 Test Cases
+##  Test Cases
 
 ### 1. Logout Functionality Validation
 **Steps:**
